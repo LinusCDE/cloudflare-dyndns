@@ -23,8 +23,8 @@ def main():
         return flask.jsonify({'status': 'error', 'message': 'Missing zone URL parameter.'}), 400
     if not record:
         return flask.jsonify({'status': 'error', 'message': 'Missing record URL parameter.'}), 400
-    if not ipv4 and not ipv6:
-        return flask.jsonify({'status': 'error', 'message': 'Missing ipv4 or ipv6 URL parameter.'}), 400
+    if not ipv4 and not ipv6 and not ipv6prefix:
+        return flask.jsonify({'status': 'error', 'message': 'Missing ipv4, ipv6 or ipv6prefix URL parameter.'}), 400
     if ipv6 and ipv6prefix:
         return flask.jsonify({'status': 'error', 'message': 'Only ipv6 or ipv6prefix supported. Not both.'}), 400
 
