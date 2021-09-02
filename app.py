@@ -57,8 +57,8 @@ def main():
             original_ipv6 = ipv6util.IPv6(aaaa_record[0]['content'])
             new_ipv6_prefix = ipv6util.IPv6(ipv6prefix)
             if new_ipv6_prefix.net_bit_count == 128:
-                # If no netmask was given (/xxx) at the end, assume /48
-                new_ipv6_prefix.net_bit_count = 48
+                # If no netmask was given (/xxx) at the end, assume /64
+                new_ipv6_prefix.net_bit_count = 64
             new_ipv6 = original_ipv6.modifiedPrefix(new_ipv6_prefix)
             if original_ipv6 != new_ipv6:
                 cf.zones.dns_records.put(zones[0]['id'], aaaa_record[0]['id'], data={

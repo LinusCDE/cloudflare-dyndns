@@ -182,10 +182,10 @@ class IPv6:
         ip with the new ip prefix.
         The length of the prefix is determined by the given IPs subnet
         '''
-        new_ip_prefix = new_ip_prefix.first()
-        non_prefix_num = int('0'*new_ip_prefix.net_bit_count + '1'*(128-new_ip_prefix.net_bit_count), 2) & self.ip_num
-
-        return IPv6(to_ip_str(new_ip_prefix.ip_num | non_prefix_num))
+        non_prefix_mask = (2**(128-new_ip_prefix.net_bit_count))-1
+        prefix_mask = ((2**(new_ip_prefix.net_bit_count))-1) << (128-new_ip_prefix.net_bit_count)
+        new_ip_num = new_ip_prefix.ip_num & prefix_mask | self.ip_num & non_prefix_mask
+        return IPv6(to_ip_str(new_ip_num))
 
     def __eq__(self, other: 'IPv6') -> bool:
         if not isinstance(other, IPv6):
